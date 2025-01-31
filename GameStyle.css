@@ -1,0 +1,88 @@
+body {
+  text-align: center;
+  /* display: flex; */
+
+}
+main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+section {
+  /* margin-top: 10%; */
+  margin-bottom: 2rem;
+  /* background: white; */
+  padding: 1.5rem;
+  /* border: 2px solid white; */
+  border-radius: 8px;
+  box-shadow: 14px 14px 16px rgba(167, 167, 167, 0.1);
+
+  color: #fff2c2;
+  text-align: center;
+
+}
+h1 {
+  padding: 2%;
+  color: #cba35c;
+
+}
+
+#startBtn {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  background-color: #3e5879;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#startBtn:hover {
+  background-color: #213555;
+}
+
+
+.input-container {
+  margin: 10px 0;
+}
+input{
+  font-size: 15px; 
+  color : #fff2c2;
+  padding: 10px;
+  margin-right: 15px;
+  border-radius: 10px;
+}
+.result {
+  margin-top: 15px;
+  font-weight: bold;
+  color: #444;
+}
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #88611d;
+  color: #424240;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 5px 5px 5px #bdb38e;;
+}
+button:hover {
+  background-color: #574e28;
+  color: #fff2c2;
+  box-shadow: 2px 2px 2px #bdb38e;;
+
+}
+
+.game{
+  max-width: 500px;
+  border: 2px solid #cba35c;
+}
+
+.game H1{
+  color: #cba35c;
+}
+
+#feedback ,#attempts{
+  color: #fff2c2;
+}

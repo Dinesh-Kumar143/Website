@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="GameStyle.css">
+</head>
+
+<body>
+  <header>
+    <div class="navigation">
+      <div class="logo">
+        <img src="src/logos/logo3.svg" alt="Logo" onclick="window.location.href = 'index.html';">
+      </div>
+      <div class="headers">
+        <ul>
+          <li><a href="index.html">Home</a> </li>
+          <li><a href="Members.html">Members</a> </li>
+          <li><a href="Flow-Diagram.html">Flow Diagram</a></li>
+          <li><a href="Game.html">Game</a> </li>
+          <li><a href="Source-Code.html">Source Code</a></li>
+          <li><a href="QA.html">Q/A</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="game">
+      <h1>Mastermind Game</h1>
+      <div class="game-container">
+        <p>Try to guess the secret code! Enter four numbers (1-6) separated by spaces.</p>
+        <div class="input-container">
+          <input type="text" id="guess" placeholder="e.g., 1 3 5 2">
+          <button onclick="submitGuess()">Submit Guess</button>
+        </div>
+        <div id="feedback" class="result"></div>
+        <div id="attempts" class="result"></div>
+      </div>
+    </section>
+      <script>
+        // Generate secret code
+        const secretCode = generateSecretCode();
+        let attempts = 0;
+
+        function generateSecretCode() {
+          const numbers = [1, 2, 3, 4, 5, 6];
+          const code = [];
+          while (code.length < 4) {
+            const randomIndex = Math.floor(Math.random() * numbers.length);
+            const chosen = numbers.splice(randomIndex, 1)[0];
+            code.push(chosen);
+          }
+          return code;
+        }
+
+        function submitGuess() {
+          const guessInput = document.getElementById("guess").value.trim();
+          const feedbackElement = document.getElementById("feedback");
+          const attemptsElement = document.getElementById("attempts");
+
+          // Parse and validate guess
+          const guess = guessInput.split(" ").map(Number);
+          if (guess.length !== 4 || !guess.every(num => num >= 1 && num <= 6) || new Set(guess).size !== 4) {
+            feedbackElement.textContent = "Invalid guess. Enter four different numbers between 1 and 6.";
+            return;
+          }
+
+          attempts++;
+
+          // Score the guess
+          let blackPegs = 0;
+          let whitePegs = 0;
+          const secretCopy = [...secretCode];
+          const guessCopy = [...guess];
+
+          // Check for black pegs
+          for (let i = 0; i < 4; i++) {
+            if (guess[i] === secretCopy[i]) {
+              blackPegs++;
+              secretCopy[i] = guessCopy[i] = null;
+            }
+          }
+
+          // Check for white pegs
+          for (let i = 0; i < 4; i++) {
+            if (guessCopy[i] !== null && secretCopy.includes(guessCopy[i])) {
+              whitePegs++;
+              secretCopy[secretCopy.indexOf(guessCopy[i])] = null;
+            }
+          }
+
+          // Provide feedback
+          feedbackElement.textContent = `Your guess: ${guess.join(", ")} \nScore: ${blackPegs} black peg(s), ${whitePegs} white peg(s)`;
+
+          // Check for win
+          if (blackPegs === 4) {
+            feedbackElement.textContent = `Congratulations! You guessed the code: ${secretCode.join(", ")} in ${attempts} attempt(s).`;
+            return;
+          }
+
+          // Update attempts
+          attemptsElement.textContent = `Attempts: ${attempts}`;
+        }
+      </script>
+  </main>
+  <footer>
+    <div class="footer">
+      &copy; 2025 BSCS 633 - University of Karachi | Team A-G6
+    </div>
+  </footer>
+
+</body>
+
+</html>
